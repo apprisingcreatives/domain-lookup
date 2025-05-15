@@ -60,7 +60,7 @@ export default function DomainLookupPage() {
           domainName={result.domainName}
           estimatedDomainAge={result.estimatedDomainAge}
           expiresDate={result.expiresDate}
-          hostNames={result.nameServers.hostNames}
+          hostNames={result.hostNames}
           registrarName={result.registrarName}
         />
       );

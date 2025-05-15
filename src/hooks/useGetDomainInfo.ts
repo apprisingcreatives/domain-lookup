@@ -7,9 +7,7 @@ type Result = {
   createdDate: string | Date;
   expiresDate: string | Date;
   estimatedDomainAge: number;
-  nameServers: {
-    hostNames: string[];
-  };
+  hostNames: string[];
   registrant: string;
   technicalContact: string;
   administrativeContact: string;

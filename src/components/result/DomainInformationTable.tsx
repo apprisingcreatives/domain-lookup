@@ -1,4 +1,4 @@
-import { formatDateTime } from '@/utils/dateFormatter';
+import { formatDate } from '@/utils/dateFormatter';
 import { truncateName } from '@/utils/stringHelper';
 import React, { useMemo } from 'react';
 
@@ -21,15 +21,15 @@ const DomainInformationTable = ({
 }: Props) => {
   const domainInfo = useMemo(() => {
     return [
-      { label: 'Domain Name', value: domainName || 'N/A' },
-      { label: 'Registrar', value: registrarName || 'N/A' },
+      { label: 'Domain Name', value: domainName },
+      { label: 'Registrar', value: registrarName },
       {
         label: 'Registration Date',
-        value: formatDateTime({ date: createdDate }),
+        value: formatDate({ date: createdDate }),
       },
       {
         label: 'Expiration Date',
-        value: formatDateTime({ date: expiresDate }),
+        value: formatDate({ date: expiresDate }),
       },
       {
         label: 'Estimated Domain Age',
@@ -37,7 +37,7 @@ const DomainInformationTable = ({
       },
       {
         label: 'Hostnames',
-        value: truncateName(hostNames),
+        value: truncateName(hostNames) || [],
       },
     ];
   }, [

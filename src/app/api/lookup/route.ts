@@ -30,47 +30,29 @@ export async function GET(req: NextRequest) {
         status: 400,
       });
 
-    const { WhoisRecord } = data || {};
-    const {
-      contactEmail,
-      technicalContact,
-      administrativeContact,
-      domainName,
-      registrarName,
-      createdDate,
-      expiresDate,
-      estimatedDomainAge,
-      nameServers,
-      registrant,
-    } = WhoisRecord || {};
+    const WhoisRecord = data?.WhoisRecord ?? {};
 
-    if (type === 'contact') {
-      return new Response(
-        JSON.stringify({
-          contactEmail: contactEmail ?? 'No contact email found.',
-          technicalContactName: technicalContact?.name,
-          administrativeContactName: administrativeContact?.name,
-          registrantName: registrant?.name,
-        }),
-        { status: 200 }
-      );
-    } else {
-      return new Response(
-        JSON.stringify({
-          domainName,
-          registrarName,
-          createdDate,
-          expiresDate,
-          estimatedDomainAge,
-          nameServers,
-          registrant,
-          technicalContact,
-          administrativeContact,
-          contactEmail,
-        }),
-        { status: 200 }
-      );
-    }
+    const domainInfo = {
+      domainName: WhoisRecord.domainName ?? 'N/A',
+      registrarName: WhoisRecord.registrarName ?? 'N/A',
+      createdDate: WhoisRecord.createdDate ?? 'N/A',
+      expiresDate: WhoisRecord.expiresDate ?? 'N/A',
+      estimatedDomainAge: WhoisRecord.estimatedDomainAge,
+      hostNames: WhoisRecord.nameServers?.hostNames ?? [],
+    };
+
+    const contactInfo = {
+      contactEmail: WhoisRecord.contactEmail ?? 'N/A',
+      technicalContactName: WhoisRecord.technicalContact?.name ?? 'N/A',
+      administrativeContactName:
+        WhoisRecord.administrativeContact?.name ?? 'N/A',
+      registrantName: WhoisRecord.registrant?.name ?? 'N/A',
+    };
+
+    return new Response(
+      JSON.stringify(type === 'contact' ? contactInfo : domainInfo),
+      { status: 200 }
+    );
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : 'Error fetching domain info';
