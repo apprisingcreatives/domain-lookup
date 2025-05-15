@@ -5,6 +5,9 @@ import ContactInformationTable from '@/components/result/ContactInformationTable
 import DomainInformationTable from '@/components/result/DomainInformationTable';
 import { isValidDomain } from '@/utils/stringHelper';
 import CircularLoading from '@/components/common/CircularLoading';
+import Input from '@/components/common/Input';
+import SelectInput from '@/components/common/SelectInput';
+import Button from '@/components/common/Button';
 
 export default function DomainLookupPage() {
   const [submittedInfoType, setSubmittedInfoType] = useState<
@@ -67,6 +70,16 @@ export default function DomainLookupPage() {
     }
   };
 
+  const options = useMemo(() => {
+    return [
+      { label: 'Domain Information', value: 'domain' },
+      {
+        label: 'Contact Information',
+        value: 'contact',
+      },
+    ];
+  }, []);
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex flex-col items-center justify-center p-6'>
       <div className='w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 space-y-6 border border-blue-100'>
@@ -75,32 +88,28 @@ export default function DomainLookupPage() {
         </h1>
 
         <div className='space-y-3'>
-          <input
-            type='text'
-            placeholder='e.g. example.com'
-            value={domain}
+          <Input
+            error={touched && Boolean(domain) && !isDomainValid}
             onChange={onInputChange}
+            value={domain}
+            helperText='Please enter a valid domain.'
+            placeholder='e.g. example.com'
             onBlur={onInputBlur}
-            className='w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition'
           />
-          {touched && domain && !isDomainValid && (
-            <p className='text-red-500 text-sm'>Please enter a valid domain.</p>
-          )}
-          <select
-            value={infoType}
+
+          <SelectInput
             onChange={onChangeSelect}
-            className='w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition'
-          >
-            <option value='domain'>Domain Information</option>
-            <option value='contact'>Contact Information</option>
-          </select>
-          <button
+            value={infoType}
+            options={options}
+          />
+
+          <Button
             onClick={onLookUpClick}
-            disabled={!domain || !isDomainValid || loading}
-            className='w-full py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition font-medium cursor-pointer disabled:pointer-events-none'
+            disabled={!domain || !isDomainValid}
+            loading={loading}
           >
             {loading ? 'Looking up...' : 'Submit'}
-          </button>
+          </Button>
 
           {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
         </div>
