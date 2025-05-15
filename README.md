@@ -23,25 +23,17 @@ A modern web application built with **Next.js 15**, **React 19**, and **Tailwind
 
 ---
 
-## 🚀 Getting Started
-
-### 1. Clone the repo
-
-```bash
-- git clone https://github.com/apprisingcreatives/domain-lookup.git
-- cd domain-lookup
-
-### 2. Install dependencies
-- npm install
-
-### 3. Configure environment variables
-- touch .env.local
-Add your WhoisXML API key:
-- WHOIS_API_KEY=your_api_key_here
-
-### 4. Run the development server (localhost:5000)
-- npm run dev
-
+1. **Clone the repo**
+   - Run: `git clone https://github.com/apprisingcreatives/domain-lookup.git`
+   - Then: `cd domain-lookup`
+2. **Install dependencies**
+   - Run: `npm install`
+3. **Configure environment variables**
+   - Create the file: `.env.local`
+   - Add your API key:  
+     `WHOIS_API_KEY=your_api_key_here`
+4. **Run the development server (localhost:5000)**
+   - Run: `npm run dev`
 
 🔧 API Endpoint
 Local API route: /api/lookup
@@ -56,15 +48,17 @@ Example: GET /api/lookup?domain=google.com&type=domain
 
 📁 Project Structure
 src/
-  app/
-    api/
-      lookup/
-        route.ts   ← API logic
-    page.tsx       ← Main UI
-  components       ← Reusable Components
-  hooks            ← Custom hooks
-  utils            ← helpers
+    app/
+        api/
+            lookup/
+                route.ts ← API logic
+        page.tsx         ← Main UI
+    components           ← Reusable Components
+    hooks                ← Custom hooks
+    utils                ← helpers
 tailwind.config.ts
 postcss.config.js
 .env.local
+
 ```
+
