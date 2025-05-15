@@ -46,19 +46,5 @@ type: Either domain or contact
 
 Example: GET /api/lookup?domain=google.com&type=domain
 
-📁 Project Structure
-src/
-    app/
-        api/
-            lookup/
-                route.ts ← API logic
-        page.tsx         ← Main UI
-    components           ← Reusable Components
-    hooks                ← Custom hooks
-    utils                ← helpers
-tailwind.config.ts
-postcss.config.js
-.env.local
 
-```
 
