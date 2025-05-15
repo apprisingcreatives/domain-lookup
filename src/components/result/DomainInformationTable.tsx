@@ -1,6 +1,6 @@
 import { formatDate } from '@/utils/dateFormatter';
 import { truncateName } from '@/utils/stringHelper';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 type Props = {
   domainName: string;
@@ -19,6 +19,8 @@ const DomainInformationTable = ({
   hostNames,
   estimatedDomainAge,
 }: Props) => {
+  const [showFullHostnames, setShowFullHostnames] = useState(false);
+
   const domainInfo = useMemo(() => {
     return [
       { label: 'Domain Name', value: domainName },
@@ -37,7 +39,7 @@ const DomainInformationTable = ({
       },
       {
         label: 'Hostnames',
-        value: truncateName(hostNames) || [],
+        value: showFullHostnames ? hostNames : truncateName(hostNames) || [],
       },
     ];
   }, [
@@ -47,6 +49,7 @@ const DomainInformationTable = ({
     expiresDate,
     estimatedDomainAge,
     hostNames,
+    showFullHostnames,
   ]);
 
   return (
@@ -59,7 +62,17 @@ const DomainInformationTable = ({
               <td className='px-2 py-1 font-semibold text-gray-600 border-r'>
                 {label}
               </td>
-              <td className='px-2 py-1'>{value}</td>
+              <td className='px-2 py-1'>
+                {Array.isArray(value) ? value.join(', ') : value}
+                {label === 'Hostnames' && hostNames.length > 2 && (
+                  <button
+                    className='ml-2 text-blue-600 hover:underline text-xs cursor-pointer'
+                    onClick={() => setShowFullHostnames((prev) => !prev)}
+                  >
+                    {showFullHostnames ? 'Show Less' : 'Show All'}
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
