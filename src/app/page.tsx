@@ -97,7 +97,7 @@ export default function DomainLookupPage() {
           <button
             onClick={onLookUpClick}
             disabled={!domain || !isDomainValid || loading}
-            className='w-full py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition font-medium cursor-pointer'
+            className='w-full py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition font-medium cursor-pointer disabled:pointer-events-none'
           >
             {loading ? 'Looking up...' : 'Submit'}
           </button>
