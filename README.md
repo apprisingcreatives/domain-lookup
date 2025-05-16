@@ -47,4 +47,6 @@ type: Either domain or contact
 Example: GET /api/lookup?domain=google.com&type=domain
 
 
+Production link: https://domain-lookup-three.vercel.app/
+
 
